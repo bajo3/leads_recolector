@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -23,477 +23,171 @@
       --radius: 10px;
       --radius-sm: 6px;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      font-size: 14px;
-    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
 
     .header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
       padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px; position: sticky; top: 0; z-index: 100;
     }
-
     .logo { display: flex; align-items: center; gap: 10px; }
-    .logo-icon {
-      width: 28px; height: 28px;
-      background: var(--accent);
-      border-radius: 7px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px;
-    }
-    .logo-text { font-size: 15px; font-weight: 600; color: var(--text); }
+    .logo-icon { width: 28px; height: 28px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .logo-text { font-size: 15px; font-weight: 600; }
     .logo-sub { font-size: 12px; color: var(--text2); margin-left: 4px; font-weight: 300; }
 
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .stat {
-      background: var(--surface);
-      padding: 14px 20px;
-      text-align: center;
-    }
-
-    .stat-num {
-      font-size: 22px;
-      font-weight: 600;
-      font-family: 'DM Mono', monospace;
-      color: var(--text);
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: var(--text2);
-      margin-top: 2px;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-    }
-
+    .stats-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+    .stat { background: var(--surface); padding: 14px 20px; text-align: center; }
+    .stat-num { font-size: 22px; font-weight: 600; font-family: 'DM Mono', monospace; }
+    .stat-label { font-size: 11px; color: var(--text2); margin-top: 2px; text-transform: uppercase; letter-spacing: .5px; }
     .stat-num.green { color: var(--green); }
     .stat-num.amber { color: var(--amber); }
     .stat-num.blue  { color: var(--blue); }
     .stat-num.red   { color: var(--red); }
 
+    .tabs {
+      display: flex; align-items: center; gap: 0;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .tab {
+      padding: 12px 18px; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+      color: var(--text2); background: none; border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 7px;
+    }
+    .tab:hover { color: var(--text); }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-badge {
+      background: var(--surface2); border: 1px solid var(--border2);
+      border-radius: 10px; padding: 1px 7px; font-size: 11px;
+      font-family: 'DM Mono', monospace; color: var(--text3);
+    }
+    .tab.active .tab-badge { background: #2a2000; border-color: #4a3500; color: var(--amber); }
+
     .toolbar {
-      padding: 14px 24px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: flex-end;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      position: relative;
+      padding: 12px 24px; display: flex; gap: 10px; align-items: center;
+      justify-content: flex-end; background: var(--bg); border-bottom: 1px solid var(--border); position: relative;
     }
-
-    .toolbar-menu {
-      position: relative;
-    }
-
+    .toolbar-menu { position: relative; }
     .toolbar-panel {
-      position: absolute;
-      top: calc(100% + 10px);
-      right: 0;
-      width: min(420px, calc(100vw - 32px));
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-radius: var(--radius);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
-      padding: 14px;
-      display: none;
-      z-index: 120;
+      position: absolute; top: calc(100% + 10px); right: 0;
+      width: min(420px, calc(100vw - 32px)); background: var(--surface);
+      border: 1px solid var(--border2); border-radius: var(--radius);
+      box-shadow: 0 18px 40px rgba(0,0,0,.35); padding: 14px; display: none; z-index: 120;
     }
-
-    .toolbar-panel.open {
-      display: grid;
-      gap: 10px;
-    }
-
-    .toolbar-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-    }
+    .toolbar-panel.open { display: grid; gap: 10px; }
+    .toolbar-actions { display: flex; justify-content: flex-end; gap: 8px; }
 
     .search-wrap { position: relative; flex: 1; min-width: 200px; }
-    .search-wrap svg {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: .4;
-    }
+    .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); opacity: .4; }
 
     input[type=text], select, textarea {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      color: var(--text);
-      padding: 8px 12px;
-      font-size: 13px;
-      font-family: 'DM Sans', sans-serif;
-      outline: none;
-      transition: border-color .15s;
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text); padding: 8px 12px;
+      font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color .15s;
     }
+    .search-wrap input[type=text] { padding-left: 34px; }
+    input[type=text]:focus, select:focus, textarea:focus { border-color: var(--border2); }
+    input[type=text]::placeholder, textarea::placeholder { color: var(--text3); }
 
-    .search-wrap input[type=text] {
-      padding-left: 34px;
-    }
-
-    input[type=text]:focus, select:focus, textarea:focus {
-      border-color: var(--border2);
-    }
-
-    input[type=text]::placeholder, textarea::placeholder {
-      color: var(--text3);
-    }
-
-    .btn {
-      padding: 8px 16px;
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      font-weight: 500;
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      border: none;
-      transition: opacity .15s, transform .1s;
-    }
-
+    .btn { padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; transition: opacity .15s, transform .1s; }
     .btn:active { transform: scale(.97); }
     .btn-primary { background: var(--accent); color: #000; }
     .btn-primary:hover { opacity: .9; }
-    .btn-ghost {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text2);
-    }
-    .btn-ghost:hover {
-      border-color: var(--border2);
-      color: var(--text);
-    }
+    .btn-ghost { background: var(--surface); border: 1px solid var(--border); color: var(--text2); }
+    .btn-ghost:hover { border-color: var(--border2); color: var(--text); }
 
     .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; }
-
-   thead th {
-  background: var(--surface);
-  color: var(--text2);
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  padding: 10px 16px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-  position: static;
-}
-
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background .1s;
+    thead th {
+      background: var(--surface); color: var(--text2); font-size: 11px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: .5px; padding: 10px 16px; text-align: left;
+      border-bottom: 1px solid var(--border); white-space: nowrap;
     }
-
+    tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
     tbody tr:hover { background: var(--surface); }
+    td { padding: 10px 16px; font-size: 13px; color: var(--text); vertical-align: middle; }
 
-    td {
-      padding: 11px 16px;
-      font-size: 13px;
-      color: var(--text);
-      vertical-align: middle;
-    }
-
-    .name { font-weight: 500; color: var(--text); }
+    .name { font-weight: 600; color: var(--text); }
+    .phone-wrap { display: flex; align-items: center; gap: 6px; }
     .phone { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text2); }
-    .auto-cell { color: var(--text2); font-size: 12px; max-width: 240px; }
-    .date-cell {
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      color: var(--text3);
-      white-space: nowrap;
+    .wa-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%; background: #0d3320;
+      border: 1px solid #1a5a38; color: #25d366; text-decoration: none;
+      font-size: 13px; transition: all .15s; flex-shrink: 0;
     }
+    .wa-btn:hover { background: #1a5a38; }
+    .auto-cell { color: var(--text2); font-size: 12px; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .date-cell { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); white-space: nowrap; }
 
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 9px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 500;
-      white-space: nowrap;
-      cursor: pointer;
-      border: none;
-      font-family: 'DM Sans', sans-serif;
-      transition: opacity .15s;
+      display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px;
+      border-radius: 20px; font-size: 11px; font-weight: 500; white-space: nowrap;
+      cursor: pointer; border: none; font-family: 'DM Sans', sans-serif; transition: opacity .15s;
     }
-
     .badge:hover { opacity: .85; }
     .badge.sin         { background: #1e1e28; color: var(--text2); border: 1px solid var(--border2); }
     .badge.interesado  { background: #0e2e1e; color: var(--green); border: 1px solid #1a4a2e; }
     .badge.recontactar { background: #2e2000; color: var(--amber); border: 1px solid #4a3500; }
-    .badge.nocontesta  { background: #2e0e0e; color: var(--red); border: 1px solid #4a1a1a; }
+    .badge.nocontesta  { background: #2e0e0e; color: var(--red);   border: 1px solid #4a1a1a; }
     .badge.noint       { background: #1a1a22; color: var(--text3); border: 1px solid var(--border); }
-    .badge.cerrado     { background: #0e1e2e; color: var(--blue); border: 1px solid #1a3a50; }
+    .badge.cerrado     { background: #0e1e2e; color: var(--blue);  border: 1px solid #1a3a50; }
+
+    .days-badge {
+      font-size: 11px; font-family: 'DM Mono', monospace; padding: 2px 6px;
+      border-radius: 4px; white-space: nowrap;
+    }
+    .days-badge.hot  { background: #2e0e0e; color: var(--red);   border: 1px solid #4a1a1a; }
+    .days-badge.warm { background: #2e2000; color: var(--amber); border: 1px solid #4a3500; }
+    .days-badge.ok   { background: #0e2e1e; color: var(--green); border: 1px solid #1a4a2e; }
+    .days-badge.none { color: var(--text3); }
 
     .prio { font-size: 12px; }
-
     .action-btn {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      color: var(--text2);
-      padding: 4px 8px;
-      font-size: 12px;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      transition: all .15s;
+      background: none; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      color: var(--text2); padding: 4px 10px; font-size: 12px; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; transition: all .15s;
     }
+    .action-btn:hover { border-color: var(--border2); color: var(--text); background: var(--surface2); }
 
-    .action-btn:hover {
-      border-color: var(--border2);
-      color: var(--text);
-      background: var(--surface2);
-    }
-
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.7);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
     .modal-overlay.open { display: flex; }
-
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 480px;
-      animation: slideUp .2s ease;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(16px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .modal-header {
-      padding: 18px 20px 14px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
+    .modal { background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius); width: 100%; max-width: 480px; animation: slideUp .2s ease; }
+    @keyframes slideUp { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .modal-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .modal-title { font-size: 15px; font-weight: 600; }
+    .modal-close { background: none; border: none; color: var(--text2); cursor: pointer; font-size: 18px; padding: 2px 6px; border-radius: 4px; }
+    .modal-close:hover { background: var(--surface2); color: var(--text); }
+    .modal-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .modal-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
+    .field label { display: block; font-size: 11px; color: var(--text2); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .4px; }
+    .field input, .field select, .field textarea { background: var(--surface2); border: 1px solid var(--border); padding: 9px 12px; }
+    .field textarea { resize: vertical; min-height: 70px; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-    .modal-close {
-      background: none;
-      border: none;
-      color: var(--text2);
-      cursor: pointer;
-      font-size: 18px;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-
-    .modal-close:hover {
-      background: var(--surface2);
-      color: var(--text);
-    }
-
-    .modal-body {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .modal-footer {
-      padding: 14px 20px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
-    .field label {
-      display: block;
-      font-size: 11px;
-      color: var(--text2);
-      margin-bottom: 5px;
-      text-transform: uppercase;
-      letter-spacing: .4px;
-    }
-
-    .field input, .field select, .field textarea {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 9px 12px;
-    }
-
-    .field textarea {
-      resize: vertical;
-      min-height: 70px;
-    }
-
-    .field input:focus, .field select:focus, .field textarea:focus {
-      border-color: var(--accent);
-    }
-
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .status-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 16px;
-    }
-
-    .status-opt {
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
-      border: 1px solid transparent;
-      transition: all .1s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .status-opt:hover { opacity: .85; }
-
-    .loading, .empty {
-      text-align: center;
-      padding: 60px;
-      color: var(--text2);
-    }
-
-    .spinner {
-      width: 28px;
-      height: 28px;
-      border: 2px solid var(--border2);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin .6s linear infinite;
-      margin: 0 auto 12px;
-    }
-
+    .loading, .empty { text-align: center; padding: 60px; color: var(--text2); }
+    .spinner { width: 28px; height: 28px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin .6s linear infinite; margin: 0 auto 12px; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      color: var(--text);
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: 500;
-      z-index: 300;
-      opacity: 0;
-      transition: opacity .2s;
-      white-space: nowrap;
-      max-width: calc(100vw - 32px);
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--surface2); border: 1px solid var(--border2); color: var(--text); padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 500; z-index: 300; opacity: 0; transition: opacity .2s; white-space: nowrap; max-width: calc(100vw - 32px); overflow: hidden; text-overflow: ellipsis; }
     .toast.show { opacity: 1; }
 
-    .notes-cell {
-      font-size: 12px;
-      color: var(--text3);
-      max-width: 180px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .inline-select, .inline-input, .inline-textarea {
+      width: 100%; min-width: 0; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text); font-size: 12px; font-family: 'DM Sans', sans-serif;
+      transition: border-color .15s, opacity .15s;
     }
-
-    .inline-select,
-    .inline-input,
-    .inline-textarea {
-      width: 100%;
-      min-width: 0;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      color: var(--text);
-      font-size: 12px;
-      font-family: 'DM Sans', sans-serif;
-      transition: border-color .15s, opacity .15s, background .15s;
-    }
-
-    .inline-select,
-    .inline-input {
-      padding: 6px 8px;
-    }
-
-    .inline-input {
-      font-family: 'DM Mono', monospace;
-    }
-
-    .inline-textarea {
-      padding: 7px 8px;
-      min-height: 34px;
-      resize: vertical;
-      white-space: pre-wrap;
-    }
-
-    .inline-select:focus,
-    .inline-input:focus,
-    .inline-textarea:focus {
-      border-color: var(--accent);
-      outline: none;
-    }
-
-    .inline-select.saving,
-    .inline-input.saving,
-    .inline-textarea.saving {
-      opacity: .6;
-      background: #2a2a35;
-    }
-
-    .inline-cell {
-      min-width: 150px;
-    }
-
-    .inline-cell.notes-inline {
-      min-width: 220px;
-    }
+    .inline-select, .inline-input { padding: 6px 8px; }
+    .inline-input { font-family: 'DM Mono', monospace; }
+    .inline-textarea { padding: 7px 8px; min-height: 34px; resize: vertical; white-space: pre-wrap; }
+    .inline-select:focus, .inline-input:focus, .inline-textarea:focus { border-color: var(--accent); outline: none; }
+    .inline-select.saving, .inline-input.saving, .inline-textarea.saving { opacity: .5; pointer-events: none; }
+    .inline-cell { min-width: 150px; }
+    .inline-cell.notes-inline { min-width: 200px; }
 
     @media (max-width: 640px) {
       .stats-bar { grid-template-columns: repeat(3, 1fr); }
@@ -501,13 +195,6 @@
       .hide-mobile { display: none; }
       td, th { padding: 10px 10px; }
       .toolbar { padding: 10px 12px; }
-      .toolbar-panel {
-        right: -2px;
-        width: min(100vw - 24px, 360px);
-      }
-      .toolbar-actions {
-        flex-direction: column;
-      }
       .field-row { grid-template-columns: 1fr; }
     }
   </style>
@@ -516,7 +203,7 @@
 
   <div class="header">
     <div class="logo">
-      <div class="logo-icon">ðŸš—</div>
+      <div class="logo-icon">🚗</div>
       <span class="logo-text">Leads</span>
       <span class="logo-sub">Mercado Libre</span>
     </div>
@@ -524,26 +211,30 @@
   </div>
 
   <div class="stats-bar">
-    <div class="stat"><div class="stat-num" id="s-total">â€”</div><div class="stat-label">Total</div></div>
-    <div class="stat"><div class="stat-num" id="s-sin">â€”</div><div class="stat-label">Sin contactar</div></div>
-    <div class="stat"><div class="stat-num green" id="s-int">â€”</div><div class="stat-label">Interesados</div></div>
-    <div class="stat"><div class="stat-num amber" id="s-rec">â€”</div><div class="stat-label">Recontactar</div></div>
-    <div class="stat"><div class="stat-num blue" id="s-cer">â€”</div><div class="stat-label">Cerrados</div></div>
+    <div class="stat"><div class="stat-num" id="s-total">—</div><div class="stat-label">Activos</div></div>
+    <div class="stat"><div class="stat-num" id="s-sin">—</div><div class="stat-label">Sin contactar</div></div>
+    <div class="stat"><div class="stat-num green" id="s-int">—</div><div class="stat-label">Interesados</div></div>
+    <div class="stat"><div class="stat-num amber" id="s-rec">—</div><div class="stat-label">Recontactar</div></div>
+    <div class="stat"><div class="stat-num blue" id="s-cer">—</div><div class="stat-label">Cerrados</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-activos" onclick="switchTab('activos')">
+      Activos <span class="tab-badge" id="cnt-activos">0</span>
+    </button>
+    <button class="tab" id="tab-archivados" onclick="switchTab('archivados')">
+      Cerrados / Perdidos <span class="tab-badge" id="cnt-archivados">0</span>
+    </button>
   </div>
 
   <div class="toolbar">
     <div class="toolbar-menu">
       <button class="btn btn-ghost" type="button" onclick="toggleFiltersMenu()">Filtros</button>
-
       <div class="toolbar-panel" id="filtersPanel">
         <div class="search-wrap">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21 21-4.35-4.35"></path>
-          </svg>
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
           <input type="text" id="searchInput" placeholder="Buscar nombre, auto o teléfono..." oninput="renderTable()">
         </div>
-
         <select id="filterEstado" onchange="renderTable()">
           <option value="">Todos los estados</option>
           <option>⏳ Sin contactar</option>
@@ -553,22 +244,19 @@
           <option>🚫 No interesado</option>
           <option>🤝 Cerrado</option>
         </select>
-
         <select id="filterPrio" onchange="renderTable()">
           <option value="">Toda prioridad</option>
           <option>🔴 Alta</option>
           <option>🟡 Media</option>
           <option>🟢 Baja</option>
         </select>
-
         <select id="filterFechaOrden" onchange="renderTable()">
           <option value="desc">Fecha más reciente</option>
           <option value="asc">Fecha más antigua</option>
         </select>
-
         <div class="toolbar-actions">
           <button class="btn btn-ghost" type="button" onclick="clearFilters()">Limpiar</button>
-          <button class="btn btn-ghost" type="button" onclick="refreshData()">↺ Actualizar</button>
+          <button class="btn btn-ghost" type="button" onclick="loadData()">↺ Actualizar</button>
         </div>
       </div>
     </div>
@@ -583,8 +271,8 @@
           <th class="hide-mobile">Auto</th>
           <th>Teléfono</th>
           <th>Estado</th>
-          <th class="hide-mobile">Fecha lead</th>
-          <th class="hide-mobile">Últ. contacto</th>
+          <th class="hide-mobile">Lead</th>
+          <th class="hide-mobile">Último contacto</th>
           <th class="hide-mobile">Notas</th>
           <th>Prioridad</th>
           <th></th>
@@ -596,6 +284,7 @@
     </table>
   </div>
 
+  <!-- Modal nuevo lead -->
   <div class="modal-overlay" id="addModal">
     <div class="modal">
       <div class="modal-header">
@@ -604,52 +293,24 @@
       </div>
       <div class="modal-body">
         <div class="field-row">
-          <div class="field">
-            <label>Nombre *</label>
-            <input type="text" id="f-nombre" placeholder="Juan Pérez">
-          </div>
-          <div class="field">
-            <label>Teléfono</label>
-            <input type="text" id="f-tel" placeholder="5492494...">
-          </div>
+          <div class="field"><label>Nombre *</label><input type="text" id="f-nombre" placeholder="Juan Pérez"></div>
+          <div class="field"><label>Teléfono</label><input type="text" id="f-tel" placeholder="5492494..."></div>
         </div>
-
-        <div class="field">
-          <label>Auto / Publicación *</label>
-          <input type="text" id="f-auto" placeholder="Toyota RAV4 2.4 4x2">
-        </div>
-
+        <div class="field"><label>Auto / Publicación *</label><input type="text" id="f-auto" placeholder="Toyota RAV4 2.4 4x2"></div>
         <div class="field-row">
-          <div class="field">
-            <label>Estado</label>
+          <div class="field"><label>Estado</label>
             <select id="f-estado">
-              <option>⏳ Sin contactar</option>
-              <option>✅ Interesado</option>
-              <option>📞 Recontactar</option>
-              <option>❌ No contesta</option>
-              <option>🚫 No interesado</option>
-              <option>🤝 Cerrado</option>
+              <option>⏳ Sin contactar</option><option>✅ Interesado</option>
+              <option>📞 Recontactar</option><option>❌ No contesta</option>
+              <option>🚫 No interesado</option><option>🤝 Cerrado</option>
             </select>
           </div>
-          <div class="field">
-            <label>Prioridad</label>
-            <select id="f-prio">
-              <option>🟡 Media</option>
-              <option>🔴 Alta</option>
-              <option>🟢 Baja</option>
-            </select>
+          <div class="field"><label>Prioridad</label>
+            <select id="f-prio"><option>🟡 Media</option><option>🔴 Alta</option><option>🟢 Baja</option></select>
           </div>
         </div>
-
-        <div class="field">
-          <label>Fecha lead</label>
-          <input type="date" id="f-fechalead">
-        </div>
-
-        <div class="field">
-          <label>Notas</label>
-          <textarea id="f-notas" placeholder="Detalles del lead..."></textarea>
-        </div>
+        <div class="field"><label>Fecha lead</label><input type="date" id="f-fechalead"></div>
+        <div class="field"><label>Notas</label><textarea id="f-notas" placeholder="Detalles del lead..."></textarea></div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-ghost" onclick="closeModal('addModal')">Cancelar</button>
@@ -658,6 +319,7 @@
     </div>
   </div>
 
+  <!-- Modal editar lead -->
   <div class="modal-overlay" id="editModal">
     <div class="modal">
       <div class="modal-header">
@@ -666,58 +328,27 @@
       </div>
       <div class="modal-body">
         <div class="field-row">
-          <div class="field">
-            <label>Nombre</label>
-            <input type="text" id="e-nombre">
-          </div>
-          <div class="field">
-            <label>Teléfono</label>
-            <input type="text" id="e-tel">
-          </div>
+          <div class="field"><label>Nombre</label><input type="text" id="e-nombre"></div>
+          <div class="field"><label>Teléfono</label><input type="text" id="e-tel"></div>
         </div>
-
-        <div class="field">
-          <label>Auto / Publicación</label>
-          <input type="text" id="e-auto">
-        </div>
-
+        <div class="field"><label>Auto / Publicación</label><input type="text" id="e-auto"></div>
         <div class="field-row">
-          <div class="field">
-            <label>Estado</label>
+          <div class="field"><label>Estado</label>
             <select id="e-estado">
-              <option>⏳ Sin contactar</option>
-              <option>✅ Interesado</option>
-              <option>📞 Recontactar</option>
-              <option>❌ No contesta</option>
-              <option>🚫 No interesado</option>
-              <option>🤝 Cerrado</option>
+              <option>⏳ Sin contactar</option><option>✅ Interesado</option>
+              <option>📞 Recontactar</option><option>❌ No contesta</option>
+              <option>🚫 No interesado</option><option>🤝 Cerrado</option>
             </select>
           </div>
-          <div class="field">
-            <label>Prioridad</label>
-            <select id="e-prio">
-              <option>🟡 Media</option>
-              <option>🔴 Alta</option>
-              <option>🟢 Baja</option>
-            </select>
+          <div class="field"><label>Prioridad</label>
+            <select id="e-prio"><option>🟡 Media</option><option>🔴 Alta</option><option>🟢 Baja</option></select>
           </div>
         </div>
-
         <div class="field-row">
-          <div class="field">
-            <label>Fecha contacto</label>
-            <input type="date" id="e-fechacontacto">
-          </div>
-          <div class="field">
-            <label>Fecha lead</label>
-            <input type="date" id="e-fechalead">
-          </div>
+          <div class="field"><label>Fecha contacto</label><input type="date" id="e-fechacontacto"></div>
+          <div class="field"><label>Fecha lead</label><input type="date" id="e-fechalead"></div>
         </div>
-
-        <div class="field">
-          <label>Notas</label>
-          <textarea id="e-notas"></textarea>
-        </div>
+        <div class="field"><label>Notas</label><textarea id="e-notas"></textarea></div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-ghost" onclick="closeModal('editModal')">Cancelar</button>
@@ -728,86 +359,333 @@
 
   <div class="toast" id="toast"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+const SUPABASE_URL = 'https://xbeuigtcwsglxhtzpacd.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhiZXVpZ3Rjd3NnbHhodHpwYWNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTY2NzEsImV4cCI6MjA5MTM5MjY3MX0.qhdQfXgL7s02QHTmfpiGp3_XmF4RqEql6FUl8VUcZgM';
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const API = "https://script.google.com/macros/s/AKfycbwTBGvrKBRdbGi11kSu1XQCiGfTUm8Gk0NgeC7Hu9ygdAjswjVyfR5uEAN2dfJyEUXl/exec";
+const ARCHIVED = ['🤝 Cerrado', '🚫 No interesado'];
+const STATUS_CLASS = {
+  '⏳ Sin contactar':'sin','✅ Interesado':'interesado','📞 Recontactar':'recontactar',
+  '❌ No contesta':'nocontesta','🚫 No interesado':'noint','🤝 Cerrado':'cerrado',
+};
+const STATUS_OPTIONS = ['⏳ Sin contactar','✅ Interesado','📞 Recontactar','❌ No contesta','🚫 No interesado','🤝 Cerrado'];
+const PRIORITY_OPTIONS = ['🔴 Alta','🟡 Media','🟢 Baja'];
+
 let allLeads = [];
 let editingLead = null;
-let savingInline = false;
-const STATUS_CLASS = {
-  "⏳ Sin contactar": "sin",
-  "✅ Interesado": "interesado",
-  "📞 Recontactar": "recontactar",
-  "❌ No contesta": "nocontesta",
-  "🚫 No interesado": "noint",
-  "🤝 Cerrado": "cerrado",
-};
-const STATUS_OPTIONS = ["⏳ Sin contactar","✅ Interesado","📞 Recontactar","❌ No contesta","🚫 No interesado","🤝 Cerrado"];
-const PRIORITY_OPTIONS = ["🔴 Alta","🟡 Media","🟢 Baja"];
-function esc(s){return String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");}
-function escAttr(s){return esc(s).replace(/'/g,"&#39;");}
-function parseDateAR(value){
-  if(!value) return null;
-  const str=String(value).trim();
-  const match=str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
-  if(match){let [,d,m,y]=match; d=Number(d); m=Number(m); y=Number(y); if(y<100) y+=2000; const date=new Date(y,m-1,d); if(!Number.isNaN(date.getTime())) return date;}
-  const isoLike=str.match(/^(\d{4})-(\d{2})-(\d{2})(?:T.*)?$/);
-  if(isoLike){
-    const [,y,m,d]=isoLike; const year=Number(y); const month=Number(m); const day=Number(d); const normal=new Date(str);
-    if(!Number.isNaN(normal.getTime())){
-      const today=new Date(); today.setHours(0,0,0,0); const futureLimit=new Date(today); futureLimit.setDate(futureLimit.getDate()+45);
-      if(month<=12 && day<=12){ const swapped=new Date(year,day-1,month); if(!Number.isNaN(swapped.getTime()) && normal>futureLimit && swapped<=futureLimit) return swapped; }
-      return normal;
-    }
+let activeTab = 'activos';
+
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function escAttr(s){return esc(s).replace(/'/g,'&#39;');}
+
+function normalizeLead(row) {
+  const x = (row.raw_json && typeof row.raw_json === 'object') ? row.raw_json : {};
+  return {
+    _id: row.lead_key,
+    _raw: row.raw_json || {},
+    Nombre: row.buyer_name || '',
+    Auto: row.item_title || '',
+    Telefono: row.phone || '',
+    Estado: row.status || '⏳ Sin contactar',
+    Prioridad: x.prioridad || '🟡 Media',
+    Notas: x.notas || '',
+    FechaLead: row.date_created || '',
+    FechaContacto: x.fecha_contacto || '',
+  };
+}
+
+function displayDate(v) {
+  if (!v) return '';
+  try {
+    const d = new Date(v);
+    if (isNaN(d.getTime())) return String(v);
+    return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+  } catch(_) { return String(v); }
+}
+
+function toInputDate(v) {
+  if (!v) return '';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(String(v))) return v;
+  try {
+    const d = new Date(v);
+    if (isNaN(d.getTime())) return '';
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  } catch(_){ return ''; }
+}
+
+function daysSince(v) {
+  if (!v) return null;
+  const d = new Date(v);
+  if (isNaN(d.getTime())) return null;
+  return Math.floor((Date.now() - d.getTime()) / 86400000);
+}
+
+function daysBadge(v) {
+  const n = daysSince(v);
+  if (n === null) return '<span class="days-badge none">—</span>';
+  if (n === 0) return `<span class="days-badge ok">hoy</span>`;
+  if (n <= 3) return `<span class="days-badge warm">${n}d</span>`;
+  return `<span class="days-badge hot">${n}d</span>`;
+}
+
+function waLink(tel) {
+  if (!tel) return '';
+  const num = tel.replace(/\D/g, '');
+  return `<a class="wa-btn" href="https://wa.me/${num}" target="_blank" title="WhatsApp">💬</a>`;
+}
+
+async function loadData() {
+  closeFiltersMenu();
+  const tb = document.getElementById('tableBody');
+  tb.innerHTML = `<tr><td colspan="10"><div class="loading"><div class="spinner"></div>Cargando leads...</div></td></tr>`;
+  try {
+    const { data, error } = await db.from('meli_leads').select('*').order('date_created', { ascending: false });
+    if (error) throw error;
+    allLeads = (data || []).map(normalizeLead);
+    updateStats();
+    renderTable();
+  } catch(e) {
+    tb.innerHTML = `<tr><td colspan="10"><div class="empty">Error al cargar: ${esc(e.message)}</div></td></tr>`;
   }
-  const iso=new Date(str); if(!Number.isNaN(iso.getTime())) return iso; return null;
 }
-function formatDateAR(date){const dd=String(date.getDate()).padStart(2,"0"); const mm=String(date.getMonth()+1).padStart(2,"0"); const yyyy=date.getFullYear(); return `${dd}/${mm}/${yyyy}`;}
-function displayDate(value){const parsed=parseDateAR(value); return parsed ? formatDateAR(parsed) : String(value || "");}
-function toInputDate(value){const parsed=parseDateAR(value); if(!parsed) return ""; const dd=String(parsed.getDate()).padStart(2,"0"); const mm=String(parsed.getMonth()+1).padStart(2,"0"); const yyyy=parsed.getFullYear(); return `${yyyy}-${mm}-${dd}`;}
-function fromInputDate(value){const str=String(value || "").trim(); if(!str) return ""; const match=str.match(/^(\d{4})-(\d{2})-(\d{2})$/); if(!match) return str; const [,yyyy,mm,dd]=match; return `${dd}/${mm}/${yyyy}`;}
-function normalizeLead(lead){return {...lead,Nombre:lead.Nombre ?? lead.nombre ?? "",Auto:lead.Auto ?? lead.auto ?? "",Telefono:lead.Telefono ?? lead.telefono ?? "",Estado:lead.Estado ?? lead.estado ?? "",Prioridad:lead.Prioridad ?? lead.prioridad ?? "",Notas:lead.Notas ?? lead.notas ?? "",FechaLead:lead.FechaLead ?? lead["Fecha lead"] ?? lead.fechaLead ?? lead.fecha_lead ?? "",FechaContacto:lead.FechaContacto ?? lead["Últ. contacto"] ?? lead["Ult. contacto"] ?? lead.fechaContacto ?? lead.fecha_contacto ?? "",_row:lead._row ?? lead.row ?? lead.Row ?? 0};}
-function sortLeads(leads){return [...leads].sort((a,b)=>{const da=parseDateAR(a.FechaLead); const db=parseDateAR(b.FechaLead); if(da&&db) return db-da; if(db) return 1; if(da) return -1; return (a._row||0)-(b._row||0);});}
-function api(params){return new Promise((resolve,reject)=>{const callbackName="jsonp_cb_"+Date.now()+"_"+Math.floor(Math.random()*10000); const script=document.createElement("script"); const timeout=setTimeout(()=>{cleanup(); reject(new Error("Timeout consultando Apps Script"));},15000); function cleanup(){clearTimeout(timeout); try{delete window[callbackName];}catch(_){} if(script.parentNode) script.parentNode.removeChild(script);} params.callback=callbackName; params._ts=Date.now(); const url=API+"?"+new URLSearchParams(params).toString(); window[callbackName]=(data)=>{cleanup(); resolve(data);}; script.onerror=()=>{cleanup(); reject(new Error("Error cargando API"));}; script.src=url; document.body.appendChild(script);});}
-async function loadData(){const tb=document.getElementById("tableBody"); tb.innerHTML=`<tr><td colspan="10"><div class="loading"><div class="spinner"></div>Cargando leads...</div></td></tr>`; try{const data=await api({action:"getAll"}); if(data && data.ok===false) throw new Error(data.error || "Error desconocido"); allLeads=Array.isArray(data) ? sortLeads(data.map(normalizeLead)) : []; updateStats(); renderTable();}catch(e){tb.innerHTML=`<tr><td colspan="10"><div class="empty">Error al cargar leads: ${esc(e.message || "desconocido")}</div></td></tr>`;}}
-function updateStats(){const count=(st)=>allLeads.filter(l=>l.Estado===st).length; document.getElementById("s-total").textContent=allLeads.length; document.getElementById("s-sin").textContent=count("⏳ Sin contactar"); document.getElementById("s-int").textContent=count("✅ Interesado"); document.getElementById("s-rec").textContent=count("📞 Recontactar"); document.getElementById("s-cer").textContent=count("🤝 Cerrado");}
-function renderTable(){
-  const q=document.getElementById("searchInput").value.trim().toLowerCase();
-  const est=document.getElementById("filterEstado").value;
-  const prio=document.getElementById("filterPrio").value;
-  const fechaOrden=document.getElementById("filterFechaOrden").value || "desc";
-  const leads=allLeads.filter(l=>{const matchQ=!q || [l.Nombre,l.Auto,l.Telefono,l.Notas].some(v=>String(v||"").toLowerCase().includes(q)); const matchE=!est || l.Estado===est; const matchP=!prio || l.Prioridad===prio; return matchQ && matchE && matchP;}).sort((a,b)=>{const da=parseDateAR(a.FechaLead); const db=parseDateAR(b.FechaLead); if(da&&db){const diff=fechaOrden==="asc" ? da-db : db-da; if(diff!==0) return diff;} else if(db){return fechaOrden==="asc" ? -1 : 1;} else if(da){return fechaOrden==="asc" ? 1 : -1;} return fechaOrden==="asc" ? (b._row||0)-(a._row||0) : (a._row||0)-(b._row||0);});
-  const tb=document.getElementById("tableBody");
-  if(!leads.length){tb.innerHTML=`<tr><td colspan="10"><div class="empty">Sin resultados</div></td></tr>`; return;}
-  tb.innerHTML=leads.map((l,i)=>{const currentStatus=l.Estado || "⏳ Sin contactar"; const currentPriority=l.Prioridad || "🟡 Media"; const sc=STATUS_CLASS[currentStatus] || "sin"; const statusOptions=STATUS_OPTIONS.map(st=>`<option value="${escAttr(st)}" ${currentStatus===st ? "selected" : ""}>${esc(st)}</option>`).join(""); const priorityOptions=PRIORITY_OPTIONS.map(pr=>`<option value="${escAttr(pr)}" ${currentPriority===pr ? "selected" : ""}>${esc(pr)}</option>`).join(""); return `
-    <tr>
-      <td style="color:var(--text3);font-family:'DM Mono',monospace;font-size:12px">${i+1}</td>
-      <td><div class="name">${esc(l.Nombre || "")}</div></td>
-      <td class="auto-cell hide-mobile">${esc(l.Auto || "")}</td>
-      <td class="phone">${esc(l.Telefono || "")}</td>
-      <td class="inline-cell"><select class="inline-select badge ${sc}" onchange="inlineUpdate(${Number(l._row)||0}, 5, this, 'estado')">${statusOptions}</select></td>
-      <td class="date-cell hide-mobile">${esc(displayDate(l.FechaLead || ""))}</td>
-      <td class="hide-mobile inline-cell"><input class="inline-input date-cell" type="date" value="${escAttr(toInputDate(l.FechaContacto || ""))}" data-prev="${escAttr(displayDate(l.FechaContacto || ""))}" onchange="inlineUpdate(${Number(l._row)||0}, 6, this, 'fecha')"></td>
-      <td class="hide-mobile inline-cell notes-inline"><textarea class="inline-textarea" placeholder="Agregar nota..." data-prev="${escAttr(l.Notas || "")}" title="${escAttr(l.Notas || "")}" onblur="inlineUpdate(${Number(l._row)||0}, 7, this, 'notas')" onkeydown="handleInlineTextareaKey(event, ${Number(l._row)||0}, 7, this, 'notas')">${esc(l.Notas || "")}</textarea></td>
-      <td class="inline-cell"><select class="inline-select prio" onchange="inlineUpdate(${Number(l._row)||0}, 8, this, 'prioridad')">${priorityOptions}</select></td>
-      <td><button class="action-btn" onclick="openEdit(${Number(l._row)||0})">Editar</button></td>
-    </tr>`;}).join("");
+
+function updateStats() {
+  const activos = allLeads.filter(l => !ARCHIVED.includes(l.Estado));
+  const count = (st) => activos.filter(l => l.Estado === st).length;
+  document.getElementById('s-total').textContent = activos.length;
+  document.getElementById('s-sin').textContent = count('⏳ Sin contactar');
+  document.getElementById('s-int').textContent = count('✅ Interesado');
+  document.getElementById('s-rec').textContent = count('📞 Recontactar');
+  document.getElementById('s-cer').textContent = allLeads.filter(l => l.Estado === '🤝 Cerrado').length;
+  document.getElementById('cnt-activos').textContent = activos.length;
+  document.getElementById('cnt-archivados').textContent = allLeads.filter(l => ARCHIVED.includes(l.Estado)).length;
 }
-function handleInlineTextareaKey(event,row,col,el,kind){if((event.ctrlKey||event.metaKey)&&event.key==="Enter"){event.preventDefault(); el.blur(); return;} if(event.key==="Escape"){el.value=el.dataset.prev||""; el.blur();}}
-async function inlineUpdate(row,col,el,kind){if(!el || savingInline) return; const rawValue="value" in el ? el.value : el.textContent; const value=String(rawValue || "").trim(); const prev=el.dataset.prev || ""; let normalizedValue=value; if(kind==="fecha" && value){ if(el.type==="date"){ normalizedValue=value; } else { const parsed=parseDateAR(value); if(!parsed){ toast("Usá formato dd/mm/aaaa"); el.value=prev; return; } normalizedValue=formatDateAR(parsed); el.value=normalizedValue; } } else if(kind==="fecha"){ normalizedValue=""; } if(normalizedValue===prev) return; const lead=allLeads.find(l=>Number(l._row)===Number(row)); if(!lead) return; const updates=[{col,value:normalizedValue}]; if(kind==="estado" && !lead.FechaContacto){updates.push({col:6,value:formatDateAR(new Date())});} savingInline=true; el.disabled=true; el.classList.add("saving"); try{for(const item of updates){const res=await api({action:"update",row,col:item.col,value:item.value}); if(res && res.ok===false) throw new Error(res.error || "No se pudo guardar");} await loadData(); toast("Cambio guardado ?");}catch(e){el.value=kind==="fecha" && el.type==="date" ? toInputDate(prev) : prev; toast("Error al guardar cambio"); console.error(e);}finally{savingInline=false; el.disabled=false; el.classList.remove("saving");}}
-function toggleFiltersMenu(){document.getElementById("filtersPanel").classList.toggle("open");}
-function closeFiltersMenu(){document.getElementById("filtersPanel").classList.remove("open");}
-function clearFilters(){document.getElementById("searchInput").value=""; document.getElementById("filterEstado").value=""; document.getElementById("filterPrio").value=""; document.getElementById("filterFechaOrden").value="desc"; renderTable();}
-function refreshData(){closeFiltersMenu(); loadData();}
-function openAddModal(){["f-nombre","f-tel","f-auto","f-notas"].forEach(id=>{document.getElementById(id).value="";}); document.getElementById("f-estado").value="⏳ Sin contactar"; document.getElementById("f-prio").value="🟡 Media"; document.getElementById("f-fechalead").value=toInputDate(formatDateAR(new Date())); document.getElementById("addModal").classList.add("open");}
-async function addLead(){const nombre=document.getElementById("f-nombre").value.trim(); const auto=document.getElementById("f-auto").value.trim(); const telefono=document.getElementById("f-tel").value.trim(); const fechaLeadInput=document.getElementById("f-fechalead").value; const fechaLead=fechaLeadInput ? fromInputDate(fechaLeadInput) : ""; if(!nombre){toast("Falta el nombre"); document.getElementById("f-nombre").focus(); return;} if(!auto){toast("Falta el auto/publicación"); document.getElementById("f-auto").focus(); return;} const params={action:"add",Nombre:nombre,Auto:auto,Telefono:telefono,FechaLead:fechaLeadInput || fechaLead,Estado:document.getElementById("f-estado").value,Prioridad:document.getElementById("f-prio").value,Notas:document.getElementById("f-notas").value.trim()}; try{closeModal("addModal"); toast("Guardando..."); const res=await api(params); if(res && res.ok===false) throw new Error(res.error || "No se pudo guardar"); await loadData(); if(fechaLead){ const createdLead=[...allLeads].filter(l=>String(l.Nombre||"").trim()===nombre && String(l.Auto||"").trim()===auto && String(l.Telefono||"").trim()===telefono).sort((a,b)=>(a._row||0)-(b._row||0))[0]; if(createdLead && displayDate(createdLead.FechaLead)!==fechaLead){ const updateRes=await api({action:"update",row:createdLead._row,col:4,value:fechaLeadInput || fechaLead}); if(updateRes && updateRes.ok===false) throw new Error(updateRes.error || "No se pudo guardar la fecha del lead"); await loadData(); }} toast("Lead agregado ?");}catch(e){toast("Error al guardar"); console.error(e);}}
-function openEdit(row){const lead=allLeads.find(l=>Number(l._row)===Number(row)); if(!lead) return; editingLead=lead; document.getElementById("editModalTitle").textContent=lead.Nombre || "Editar lead"; document.getElementById("e-nombre").value=lead.Nombre || ""; document.getElementById("e-tel").value=lead.Telefono || ""; document.getElementById("e-auto").value=lead.Auto || ""; document.getElementById("e-estado").value=lead.Estado || "⏳ Sin contactar"; document.getElementById("e-prio").value=lead.Prioridad || "🟡 Media"; document.getElementById("e-fechacontacto").value=toInputDate(lead.FechaContacto || ""); document.getElementById("e-fechalead").value=toInputDate(lead.FechaLead || ""); document.getElementById("e-notas").value=lead.Notas || ""; document.getElementById("editModal").classList.add("open");}
-async function saveEdit(){if(!editingLead) return; const row=Number(editingLead._row); const nombre=document.getElementById("e-nombre").value.trim(); const auto=document.getElementById("e-auto").value.trim(); if(!nombre){toast("Falta el nombre"); document.getElementById("e-nombre").focus(); return;} if(!auto){toast("Falta el auto/publicación"); document.getElementById("e-auto").focus(); return;} const fields=[{col:1,id:"e-nombre"},{col:2,id:"e-auto"},{col:3,id:"e-tel"},{col:4,id:"e-fechalead"},{col:5,id:"e-estado"},{col:6,id:"e-fechacontacto"},{col:7,id:"e-notas"},{col:8,id:"e-prio"}]; try{closeModal("editModal"); toast("Guardando..."); for(const field of fields){let value=document.getElementById(field.id).value; if(field.id==="e-fechalead" || field.id==="e-fechacontacto") value=value || ""; const res=await api({action:"update",row,col:field.col,value}); if(res && res.ok===false) throw new Error(res.error || `Falló columna ${field.col}`);} await loadData(); toast("Cambios guardados ?");}catch(e){toast("Error al guardar cambios"); console.error(e);}}
-function closeModal(id){const el=document.getElementById(id); if(el) el.classList.remove("open");}
-function toast(msg){const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._timer); t._timer=setTimeout(()=>t.classList.remove("show"),2200);}
-document.addEventListener("click",(e)=>{if(e.target.classList && e.target.classList.contains("modal-overlay")){e.target.classList.remove("open");} const menu=document.querySelector(".toolbar-menu"); if(menu && !menu.contains(e.target)) closeFiltersMenu();});
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.getElementById('tab-activos').classList.toggle('active', tab === 'activos');
+  document.getElementById('tab-archivados').classList.toggle('active', tab === 'archivados');
+  renderTable();
+}
+
+function renderTable() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const est = document.getElementById('filterEstado').value;
+  const prio = document.getElementById('filterPrio').value;
+  const orden = document.getElementById('filterFechaOrden').value || 'desc';
+
+  const leads = allLeads.filter(l => {
+    const isArchived = ARCHIVED.includes(l.Estado);
+    if (activeTab === 'activos' && isArchived) return false;
+    if (activeTab === 'archivados' && !isArchived) return false;
+    const matchQ = !q || [l.Nombre, l.Auto, l.Telefono, l.Notas].some(v => String(v||'').toLowerCase().includes(q));
+    const matchE = !est || l.Estado === est;
+    const matchP = !prio || l.Prioridad === prio;
+    return matchQ && matchE && matchP;
+  }).sort((a, b) => {
+    const da = a.FechaLead ? new Date(a.FechaLead) : null;
+    const db2 = b.FechaLead ? new Date(b.FechaLead) : null;
+    if (da && db2) return orden === 'asc' ? da - db2 : db2 - da;
+    if (db2) return orden === 'asc' ? -1 : 1;
+    if (da)  return orden === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  const tb = document.getElementById('tableBody');
+  if (!leads.length) { tb.innerHTML = `<tr><td colspan="10"><div class="empty">Sin resultados</div></td></tr>`; return; }
+
+  tb.innerHTML = leads.map((l, i) => {
+    const st = l.Estado || '⏳ Sin contactar';
+    const pr = l.Prioridad || '🟡 Media';
+    const sc = STATUS_CLASS[st] || 'sin';
+    const id = escAttr(l._id);
+    const statusOpts = STATUS_OPTIONS.map(s => `<option value="${escAttr(s)}"${st===s?' selected':''}>${esc(s)}</option>`).join('');
+    const prioOpts   = PRIORITY_OPTIONS.map(p => `<option value="${escAttr(p)}"${pr===p?' selected':''}>${esc(p)}</option>`).join('');
+    return `<tr>
+      <td style="color:var(--text3);font-size:12px;font-family:'DM Mono',monospace">${i+1}</td>
+      <td><div class="name">${esc(l.Nombre)}</div></td>
+      <td class="auto-cell hide-mobile" title="${escAttr(l.Auto)}">${esc(l.Auto)}</td>
+      <td><div class="phone-wrap">${waLink(l.Telefono)}<span class="phone">${esc(l.Telefono)}</span></div></td>
+      <td class="inline-cell">
+        <select class="inline-select badge ${sc}" data-prev="${escAttr(st)}" onchange="inlineUpdate('${id}',this,'estado')">${statusOpts}</select>
+      </td>
+      <td class="hide-mobile">${daysBadge(l.FechaLead)}</td>
+      <td class="hide-mobile inline-cell">
+        <input class="inline-input date-cell" type="date" value="${escAttr(toInputDate(l.FechaContacto))}" data-prev="${escAttr(toInputDate(l.FechaContacto))}" onchange="inlineUpdate('${id}',this,'fecha')">
+      </td>
+      <td class="hide-mobile inline-cell notes-inline">
+        <textarea class="inline-textarea" placeholder="Nota..." data-prev="${escAttr(l.Notas)}" title="${escAttr(l.Notas)}" onblur="inlineUpdate('${id}',this,'notas')" onkeydown="handleTextareaKey(event,'${id}',this,'notas')">${esc(l.Notas)}</textarea>
+      </td>
+      <td class="inline-cell">
+        <select class="inline-select prio" data-prev="${escAttr(pr)}" onchange="inlineUpdate('${id}',this,'prioridad')">${prioOpts}</select>
+      </td>
+      <td><button class="action-btn" onclick="openEdit('${id}')">Editar</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function handleTextareaKey(e, id, el, kind) {
+  if ((e.ctrlKey||e.metaKey) && e.key==='Enter') { e.preventDefault(); el.blur(); }
+  if (e.key==='Escape') { el.value = el.dataset.prev||''; el.blur(); }
+}
+
+async function inlineUpdate(id, el, kind) {
+  if (!el) return;
+  const value = String('value' in el ? el.value : el.textContent).trim();
+  const prev = el.dataset.prev || '';
+  if (value === prev) return;
+
+  const idx = allLeads.findIndex(l => l._id === id);
+  if (idx === -1) return;
+  const lead = allLeads[idx];
+
+  // Build Supabase update payload
+  const extra = { ...lead._raw };
+  let payload = {};
+
+  if (kind === 'estado') {
+    payload.status = value;
+    if (!lead.FechaContacto) {
+      extra.fecha_contacto = new Date().toISOString().split('T')[0];
+      payload.raw_json = extra;
+    }
+  } else if (kind === 'fecha') {
+    extra.fecha_contacto = value;
+    payload.raw_json = extra;
+  } else if (kind === 'notas') {
+    extra.notas = value;
+    payload.raw_json = extra;
+  } else if (kind === 'prioridad') {
+    extra.prioridad = value;
+    payload.raw_json = extra;
+  }
+
+  // Optimistic local update — no reload
+  el.dataset.prev = value;
+  if (kind === 'estado') allLeads[idx].Estado = value;
+  else if (kind === 'fecha') { allLeads[idx].FechaContacto = value; allLeads[idx]._raw = extra; }
+  else if (kind === 'notas') { allLeads[idx].Notas = value; allLeads[idx]._raw = extra; }
+  else if (kind === 'prioridad') { allLeads[idx].Prioridad = value; allLeads[idx]._raw = extra; }
+
+  // If status moved to archived tab, re-render to remove row from activos
+  if (kind === 'estado') { updateStats(); renderTable(); }
+
+  el.classList.add('saving');
+  try {
+    const { error } = await db.from('meli_leads').update(payload).eq('lead_key', id);
+    if (error) throw error;
+    toast('Guardado ✓');
+  } catch(e) {
+    // Revert on error
+    el.value = prev; el.dataset.prev = prev;
+    if (kind === 'estado') { allLeads[idx].Estado = prev; updateStats(); renderTable(); }
+    toast('Error al guardar');
+    console.error(e);
+  } finally {
+    el.classList.remove('saving');
+  }
+}
+
+function toggleFiltersMenu(){document.getElementById('filtersPanel').classList.toggle('open');}
+function closeFiltersMenu(){document.getElementById('filtersPanel').classList.remove('open');}
+function clearFilters(){document.getElementById('searchInput').value='';document.getElementById('filterEstado').value='';document.getElementById('filterPrio').value='';document.getElementById('filterFechaOrden').value='desc';renderTable();}
+
+function openAddModal() {
+  ['f-nombre','f-tel','f-auto','f-notas'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-estado').value = '⏳ Sin contactar';
+  document.getElementById('f-prio').value = '🟡 Media';
+  document.getElementById('f-fechalead').value = new Date().toISOString().split('T')[0];
+  document.getElementById('addModal').classList.add('open');
+}
+
+async function addLead() {
+  const nombre = document.getElementById('f-nombre').value.trim();
+  const auto   = document.getElementById('f-auto').value.trim();
+  if (!nombre) { toast('Falta el nombre'); document.getElementById('f-nombre').focus(); return; }
+  if (!auto)   { toast('Falta el auto/publicación'); document.getElementById('f-auto').focus(); return; }
+
+  const fechaInput = document.getElementById('f-fechalead').value;
+  const row = {
+    lead_key: `manual_${Date.now()}_${Math.random().toString(36).slice(2,7)}`,
+    source: 'manual',
+    buyer_name: nombre,
+    item_title: auto,
+    phone: document.getElementById('f-tel').value.trim(),
+    status: document.getElementById('f-estado').value,
+    date_created: fechaInput ? new Date(fechaInput).toISOString() : new Date().toISOString(),
+    raw_json: {
+      prioridad: document.getElementById('f-prio').value,
+      notas: document.getElementById('f-notas').value.trim(),
+      fecha_contacto: '',
+    },
+  };
+  try {
+    closeModal('addModal');
+    toast('Guardando...');
+    const { error } = await db.from('meli_leads').insert(row);
+    if (error) throw error;
+    await loadData();
+    toast('Lead agregado ✓');
+  } catch(e) { toast('Error al guardar'); console.error(e); }
+}
+
+function openEdit(id) {
+  const lead = allLeads.find(l => l._id === id);
+  if (!lead) return;
+  editingLead = lead;
+  document.getElementById('editModalTitle').textContent = lead.Nombre || 'Editar lead';
+  document.getElementById('e-nombre').value = lead.Nombre;
+  document.getElementById('e-tel').value = lead.Telefono;
+  document.getElementById('e-auto').value = lead.Auto;
+  document.getElementById('e-estado').value = lead.Estado || '⏳ Sin contactar';
+  document.getElementById('e-prio').value = lead.Prioridad || '🟡 Media';
+  document.getElementById('e-fechacontacto').value = toInputDate(lead.FechaContacto);
+  document.getElementById('e-fechalead').value = toInputDate(lead.FechaLead);
+  document.getElementById('e-notas').value = lead.Notas;
+  document.getElementById('editModal').classList.add('open');
+}
+
+async function saveEdit() {
+  if (!editingLead) return;
+  const nombre = document.getElementById('e-nombre').value.trim();
+  const auto   = document.getElementById('e-auto').value.trim();
+  if (!nombre) { toast('Falta el nombre'); document.getElementById('e-nombre').focus(); return; }
+  if (!auto)   { toast('Falta el auto'); document.getElementById('e-auto').focus(); return; }
+
+  const fechaLead = document.getElementById('e-fechalead').value;
+  const extra = {
+    ...editingLead._raw,
+    prioridad: document.getElementById('e-prio').value,
+    notas: document.getElementById('e-notas').value.trim(),
+    fecha_contacto: document.getElementById('e-fechacontacto').value || '',
+  };
+  const payload = {
+    buyer_name: nombre, item_title: auto,
+    phone: document.getElementById('e-tel').value.trim(),
+    status: document.getElementById('e-estado').value,
+    date_created: fechaLead ? new Date(fechaLead).toISOString() : editingLead.FechaLead,
+    raw_json: extra,
+  };
+  try {
+    closeModal('editModal');
+    toast('Guardando...');
+    const { error } = await db.from('meli_leads').update(payload).eq('lead_key', editingLead._id);
+    if (error) throw error;
+    await loadData();
+    toast('Cambios guardados ✓');
+  } catch(e) { toast('Error al guardar cambios'); console.error(e); }
+}
+
+function closeModal(id){document.getElementById(id)?.classList.remove('open');}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
+document.addEventListener('click', e => {
+  if (e.target.classList?.contains('modal-overlay')) e.target.classList.remove('open');
+  const menu = document.querySelector('.toolbar-menu');
+  if (menu && !menu.contains(e.target)) closeFiltersMenu();
+});
 loadData();
   </script>
 </body>
 </html>
-
